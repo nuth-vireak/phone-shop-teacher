@@ -19,12 +19,14 @@ import com.piseth.java.school.phoneshop.mapper.BrandMapper;
 import com.piseth.java.school.phoneshop.model.Brand;
 import com.piseth.java.school.phoneshop.service.BrandService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/brands")
+@RequiredArgsConstructor
 public class BrandController {
 	
-	@Autowired
-	private BrandService brandService;
+	private final BrandService brandService;
 
 	@PostMapping
 	public ResponseEntity<Brand> create(@RequestBody BrandDTO brandDTO) {

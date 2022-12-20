@@ -45,7 +45,7 @@ public class BrandServiceTest {
 	@BeforeEach
 	public void setup() {
 		brandService = new BrandServiceImpl(brandRepository);
-		brand = new Brand(1,"Apple");
+		brand = new Brand(1,"Apple", true);
 		when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
 	}
 	
@@ -94,7 +94,7 @@ public class BrandServiceTest {
 	@Test
 	public void testUpdateBrand() {
 		//given
-		Brand brandUpdate = new Brand(1, "Apple V2");
+		Brand brandUpdate = new Brand(1, "Apple V2", true);
 		//when
 		Brand brandAfterUpdate = brandService.update(1, brandUpdate);
 		
@@ -114,18 +114,21 @@ public class BrandServiceTest {
 		// when
 		brandService.delete(brandToDelete);
 		//then
-		verify(brandRepository, times(1)).delete(brand);
+		verify(brandRepository).save(brandCapture.capture());
+		assertEquals(false, brandCapture.getValue().getActive());
+		
+		verify(brandRepository, times(1)).save(brand);
 	}
 	
 	@Test
 	public void testListBrand() {
 		//given
 		List<Brand> brands = List.of(
-				new Brand(1, "Apple"),
-				new Brand(2, "Samsung")
+				new Brand(1, "Apple", true),
+				new Brand(2, "Samsung", true)
 				);
 		//when
-		when(brandRepository.findAll()).thenReturn(brands);
+		when(brandRepository.findByActiveTrue()).thenReturn(brands);
 		List<Brand> brandsReturn = brandService.getBrands();
 		
 		//then
