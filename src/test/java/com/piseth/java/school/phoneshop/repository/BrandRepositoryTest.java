@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -49,7 +48,7 @@ public class BrandRepositoryTest {
 		Brand brand2 = new Brand("Samsung");
 		brandRepository.save(brand1);
 		brandRepository.save(brand2);
-		List<Brand> brands = brandRepository.findByIdIn(List.of(1,2));
+		List<Brand> brands = brandRepository.findByIdIn(List.of(1L,2L));
 		
 		assertEquals(2, brands.size());
 		assertEquals(1, brands.get(0).getId());

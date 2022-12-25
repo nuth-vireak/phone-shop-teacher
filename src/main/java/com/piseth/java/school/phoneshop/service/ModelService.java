@@ -8,6 +8,6 @@ import com.piseth.java.school.phoneshop.model.Model;
 
 public interface ModelService {
 	Model save(Model entity);
-	Model getById(Integer id);
+	Model getById(Long id);
 	Page<Model> getModels(Map<String, String> params);
 }

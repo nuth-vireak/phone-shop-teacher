@@ -45,8 +45,8 @@ public class BrandServiceTest {
 	@BeforeEach
 	public void setup() {
 		brandService = new BrandServiceImpl(brandRepository);
-		brand = new Brand(1,"Apple", true);
-		when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
+		brand = new Brand(1L,"Apple", true);
+		when(brandRepository.findById(1L)).thenReturn(Optional.of(brand));
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class BrandServiceTest {
 		//when
 		
 		//then
-		Brand brandReturn = brandService.getById(1);
+		Brand brandReturn = brandService.getById(1L);
 		assertNotNull(brandReturn);
 		assertEquals("Apple", brandReturn.getName());
 		assertEquals(1, brandReturn.getId());
@@ -81,11 +81,11 @@ public class BrandServiceTest {
 		//given
 		
 		//when
-		when(brandRepository.findById(2)).thenReturn(Optional.empty());
+		when(brandRepository.findById(2L)).thenReturn(Optional.empty());
 		
 		//then
 		
-		assertThatThrownBy(() -> brandService.getById(2))
+		assertThatThrownBy(() -> brandService.getById(2L))
 		.isInstanceOf(ApiException.class)
 		.hasMessageStartingWith("brand not found for id=");
 			
@@ -94,14 +94,14 @@ public class BrandServiceTest {
 	@Test
 	public void testUpdateBrand() {
 		//given
-		Brand brandUpdate = new Brand(1, "Apple V2", true);
+		Brand brandUpdate = new Brand(1L, "Apple V2", true);
 		//when
-		Brand brandAfterUpdate = brandService.update(1, brandUpdate);
+		Brand brandAfterUpdate = brandService.update(1L, brandUpdate);
 		
 		
 		//then
 		//verify(brandRepository, times(1)).findById(1);
-		verify(brandRepository, atMostOnce()).findById(1);
+		verify(brandRepository, atMostOnce()).findById(1L);
 		verify(brandRepository).save(brandCapture.capture());
 		assertEquals(brandCapture.getValue().getName(), brandUpdate.getName());
 		
@@ -110,7 +110,7 @@ public class BrandServiceTest {
 	@Test
 	public void testDeleteBrand() {
 		//given 
-		Integer brandToDelete = 1;
+		Long brandToDelete = 1L;
 		// when
 		brandService.delete(brandToDelete);
 		//then
@@ -124,8 +124,8 @@ public class BrandServiceTest {
 	public void testListBrand() {
 		//given
 		List<Brand> brands = List.of(
-				new Brand(1, "Apple", true),
-				new Brand(2, "Samsung", true)
+				new Brand(1L, "Apple", true),
+				new Brand(2L, "Samsung", true)
 				);
 		//when
 		when(brandRepository.findByActiveTrue()).thenReturn(brands);

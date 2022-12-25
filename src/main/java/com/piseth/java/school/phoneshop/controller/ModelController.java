@@ -41,7 +41,7 @@ public class ModelController {
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<?> getById(@PathVariable("id") int id) throws ApiException{
+	public ResponseEntity<?> getById(@PathVariable("id") Long id) throws ApiException{
 		Model model = modelService.getById(id);
 		return ResponseEntity.ok(ModelMapper.INSTANCE.toDTO(model));
 	}

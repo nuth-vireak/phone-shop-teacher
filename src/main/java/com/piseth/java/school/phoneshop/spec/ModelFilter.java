@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class ModelFilter {
-	private Integer modelId;
+	private Long modelId;
 	private String modelName;
 	private String brandName;
-	private Integer brandId;
+	private Long brandId;
 }

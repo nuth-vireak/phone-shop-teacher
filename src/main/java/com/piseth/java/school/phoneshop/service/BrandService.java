@@ -7,11 +7,11 @@ import com.piseth.java.school.phoneshop.model.Brand;
 public interface BrandService {
 	Brand save(Brand entity);
 
-	Brand getById(Integer id);
+	Brand getById(Long id);
 
-	Brand update(Integer id, Brand brand);
+	Brand update(Long id, Brand brand);
 
-	void delete(Integer id);
+	void delete(Long id);
 
 	List<Brand> getBrands();
 

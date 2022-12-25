@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class Model {
 	@Id
 	@GeneratedValue(generator = "model_seq_generator")
 	@SequenceGenerator(name = "model_seq_generator", initialValue = 1, sequenceName = "model_seq")
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "model_name")
 	private String name;
@@ -27,4 +28,8 @@ public class Model {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "the_brand_id")
 	private Brand brand;
+	
+	@NotNull(message = "{required.field}")
+	@Column(name = "year_made")
+	private Short yearMade;
 }

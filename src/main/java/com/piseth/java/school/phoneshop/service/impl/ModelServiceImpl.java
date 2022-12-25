@@ -38,7 +38,7 @@ public class ModelServiceImpl implements ModelService{
 	}
 
 	@Override
-	public Model getById(Integer id)  {
+	public Model getById(Long id)  {
 		return modelRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Model", id));
 	}
@@ -49,13 +49,13 @@ public class ModelServiceImpl implements ModelService{
 		
 		ModelFilter modelFilter = new ModelFilter();
 		if(params.containsKey("modelId")) {
-			modelFilter.setModelId(MapUtils.getInteger(params, "modelId"));
+			modelFilter.setModelId(MapUtils.getLong(params, "modelId"));
 		}
 		if(params.containsKey("modelName")) {
 			modelFilter.setModelName(MapUtils.getString(params, "modelName"));
 		}
 		if(params.containsKey("brandId")) {
-			modelFilter.setBrandId(MapUtils.getInteger(params, "brandId"));
+			modelFilter.setBrandId(MapUtils.getLong(params, "brandId"));
 		}
 		if(params.containsKey("brandName")) {
 			modelFilter.setBrandName(MapUtils.getString(params, "brandName"));

@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.piseth.java.school.phoneshop.dto.BrandDTO;
 import com.piseth.java.school.phoneshop.exception.ApiException;
-import com.piseth.java.school.phoneshop.mapper.BrandMapper;
 import com.piseth.java.school.phoneshop.model.Brand;
 import com.piseth.java.school.phoneshop.repository.BrandRepository;
 import com.piseth.java.school.phoneshop.service.BrandService;
@@ -31,13 +29,13 @@ public class BrandServiceImpl implements BrandService{
 	}
 
 	@Override
-	public Brand getById(Integer id) {
+	public Brand getById(Long id) {
 		  return brandRepository.findById(id)
 				 .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, String.format("brand not found for id=%d", id)));
 	}
 
 	@Override
-	public Brand update(Integer id, Brand source)  {
+	public Brand update(Long id, Brand source)  {
 		Brand target = getById(id);
 		//source.setId(id);
 		//BrandMapper.INSTANCE.update(target, source);
@@ -47,7 +45,7 @@ public class BrandServiceImpl implements BrandService{
 	}
 
 	@Override
-	public void delete(Integer id)  {
+	public void delete(Long id)  {
 		Brand brand = getById(id);
 		//brandRepository.delete(brand);
 		brand.setActive(false);

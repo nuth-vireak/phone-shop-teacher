@@ -5,7 +5,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.piseth.java.school.phoneshop.dto.ModelDTO;
-import com.piseth.java.school.phoneshop.model.Brand;
 import com.piseth.java.school.phoneshop.model.Model;
 import com.piseth.java.school.phoneshop.service.BrandService;
 
