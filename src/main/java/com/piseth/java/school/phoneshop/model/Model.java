@@ -26,7 +26,7 @@ public class Model {
 	private String name;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "the_brand_id")
+	@JoinColumn(name = "brand_id")
 	private Brand brand;
 	
 	@NotNull(message = "{required.field}")

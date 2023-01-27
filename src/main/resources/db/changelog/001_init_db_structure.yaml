@@ -1,0 +1,138 @@
+databaseChangeLog:
+- changeSet:
+    id: 001_init_db_structure
+    author: piseth.ing@gmail.com
+    changes:
+    - createTable:
+        tableName: brands
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: active
+            type: BOOLEAN
+        - column:
+            name: name
+            type: VARCHAR(255)
+    - createTable:
+        tableName: colors
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: name
+            type: VARCHAR(255)
+    - createTable:
+        tableName: models
+        columns:
+        - column:
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: model_name
+            type: VARCHAR(255)
+        - column:
+            constraints:
+              nullable: false
+            name: year_made
+            type: SMALLINT
+        - column:
+            name: brand_id
+            type: BIGINT
+            constraints:
+              - foreignKeyName: fk_models_brands
+                references: brands(id)
+    - createTable:
+        tableName: products
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: available_unit
+            type: INTEGER
+        - column:
+            name: image_path
+            type: VARCHAR(255)
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: sale_price
+            type: FLOAT8
+        - column:
+            name: color_id
+            type: BIGINT
+            constraints:
+              - foreignKeyName: fk_products_colors
+                references: colors(id)
+        - column:
+            name: model_id
+            type: BIGINT
+            constraints:
+              - foreignKeyName: fk_products_models
+                references: models(id)
+
+    - createTable:
+        tableName: product_import_histories
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: date_import
+            type: date
+        - column:
+            name: import_unit
+            type: INTEGER
+        - column:
+            name: price_per_unit
+            type: numeric(19, 2)
+        - column:
+            name: product_id
+            type: BIGINT
+            constraints:
+              - foreignKeyName: fk_product_import_histories_product
+                references: products(id)
+
+    - addUniqueConstraint:
+        columnNames: model_id, color_id
+        constraintName: ukb53j9mptndycba4fv2tb2h6xy
+        tableName: products
+    - addUniqueConstraint:
+        columnNames: name
+        constraintName: ukoce3937d2f4mpfqrycbr0l93m
+        tableName: brands
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 50
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: brand_seq
+        startValue: 1
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 50
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: model_seq
+        startValue: 1

@@ -17,3 +17,10 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+  liquibase:
+        change-log: classpath:db/changelog/db.changelog-master.yaml
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+      
+      

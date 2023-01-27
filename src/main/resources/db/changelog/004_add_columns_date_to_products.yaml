@@ -1,0 +1,14 @@
+databaseChangeLog:
+- changeSet:
+    id: 004_add_columns_date_to_products
+    author: piseth.ing@gmail.com
+    changes:
+      - addColumn:
+          tableName: products
+          columns:
+          - column:
+              name: date_created
+              type: DATETIME
+          - column:
+              name: date_updated
+              type: DATETIME

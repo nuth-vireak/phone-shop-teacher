@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - include:
+    - file: db/changelog/001_init_db_structure.yaml
+  - include:
+    - file: db/changelog/002_insert_brands.yaml
+  - include:
+    - file: db/changelog/003_add_table_sale_and_sale_detail.yaml
+  - include:
+    - file: db/changelog/004_add_columns_date_to_products.yaml
+    
+    
+    

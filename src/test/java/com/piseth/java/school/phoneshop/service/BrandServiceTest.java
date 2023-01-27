@@ -3,7 +3,6 @@ package com.piseth.java.school.phoneshop.service;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atMostOnce;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -18,11 +17,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.mockito.stubbing.Answer;
 
 import com.piseth.java.school.phoneshop.exception.ApiException;
 import com.piseth.java.school.phoneshop.model.Brand;
@@ -136,6 +133,5 @@ public class BrandServiceTest {
 		assertEquals("Apple", brandsReturn.get(0).getName());
 		assertEquals("Samsung", brandsReturn.get(1).getName());
 	}
-
 }
 

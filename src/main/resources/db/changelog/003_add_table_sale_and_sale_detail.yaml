@@ -1,0 +1,42 @@
+databaseChangeLog:
+- changeSet:
+    id: 003_add_table_sale_and_sale_detail
+    author: piseth.ing@gmail.com
+    changes:
+    - createTable:
+        tableName: sales
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: sold_date
+            type: DATETIME
+    - createTable:
+        tableName: sale_details
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: sale_id
+            type: BIGINT
+            constraints:
+              - foreignKeyName: fk_sale_details_sales
+                references: sales(id)
+        - column:
+            name: product_id
+            type: BIGINT
+            constraints:
+              - foreignKeyName: fk_sale_details_product
+                references: products(id)
+        - column:
+            name: amount
+            type: BIGINT
+            

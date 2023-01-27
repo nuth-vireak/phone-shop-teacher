@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.piseth.java.school.phoneshop.dto.ModelDTO;
 import com.piseth.java.school.phoneshop.exception.ResourceNotFoundException;
-import com.piseth.java.school.phoneshop.mapper.ModelMapper;
+import com.piseth.java.school.phoneshop.mapper.ModelEntityMapper;
 import com.piseth.java.school.phoneshop.model.Model;
 import com.piseth.java.school.phoneshop.repository.ModelRepository;
 import com.piseth.java.school.phoneshop.service.BrandService;

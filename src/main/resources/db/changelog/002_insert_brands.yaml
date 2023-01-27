@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002_insert_brands
+      author: piseth@gmail.com
+      changes:
+        - loadData:
+            file: db/data/002/brands.csv
+            tableName: brands
+            columns:
+              - column:
+                  name: id
+                  type: NUMERIC
+              - column:
+                  name: active
+                  type: BOOLEAN
+              - column:
+                  name: name
+                  type: STRING

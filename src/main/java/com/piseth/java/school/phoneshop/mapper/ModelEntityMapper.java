@@ -9,8 +9,8 @@ import com.piseth.java.school.phoneshop.model.Model;
 import com.piseth.java.school.phoneshop.service.BrandService;
 
 @Mapper(componentModel = "spring", uses = {BrandService.class})
-public interface ModelMapper {
-	ModelMapper INSTANCE = Mappers.getMapper(ModelMapper.class);
+public interface ModelEntityMapper {
+	ModelEntityMapper INSTANCE = Mappers.getMapper(ModelEntityMapper.class);
 
 	@Mapping(target = "brand", source = "dto.brandId")
 	Model toModel(ModelDTO dto);

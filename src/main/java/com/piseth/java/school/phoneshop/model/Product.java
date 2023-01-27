@@ -1,7 +1,10 @@
 package com.piseth.java.school.phoneshop.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +20,7 @@ import lombok.Data;
 @Table(name = "products", 
 uniqueConstraints = {@UniqueConstraint(columnNames = {"model_id", "color_id"})})
 @Data
-public class Product {
+public class Product extends AuditEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +30,7 @@ public class Product {
 	@Column(name = "name")
 	private String name;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "model_id")
 	private Model model;
 
@@ -36,7 +39,7 @@ public class Product {
 	private Color color;
 
 	@Column(name = "sale_price")
-	private Double salePrice;
+	private BigDecimal salePrice;
 
 	@Column(name = "available_unit")
 	private Integer availableUnit;
