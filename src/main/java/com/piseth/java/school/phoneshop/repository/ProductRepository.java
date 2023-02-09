@@ -10,4 +10,6 @@ import com.piseth.java.school.phoneshop.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 	// model , color
 	Optional<Product> findByModelIdAndColorId(Long modelId, Long colorId);
+	
+	
 }
