@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.piseth.java.school.phoneshop.dto.ProductOrderDTO;
+import com.piseth.java.school.phoneshop.dto.SaleByDateDTO;
 import com.piseth.java.school.phoneshop.dto.SaleDTO;
 import com.piseth.java.school.phoneshop.model.Sale;
 import com.piseth.java.school.phoneshop.model.SaleDetail;
@@ -21,6 +22,7 @@ public interface SaleMapper {
 
 	@Mapping(target = "sale", source = "sale")
 	@Mapping(target = "product", source = "dto.productId")
+	@Mapping(target = "id", ignore = true)
 	SaleDetail toSaleDetail(ProductOrderDTO dto, Sale sale, BigDecimal amount);
 	
 	default LocalDateTime toLocalDateTime(String textDateTime) {
@@ -28,4 +30,5 @@ public interface SaleMapper {
 		LocalDateTime dateTime = LocalDateTime.parse(textDateTime, dateTimeFormatter);
 		return dateTime;
 	}
+	
 }

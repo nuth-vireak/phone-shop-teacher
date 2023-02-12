@@ -3,6 +3,7 @@ package com.piseth.java.school.phoneshop.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.piseth.java.school.phoneshop.dto.ProductSoldDTO;
 import com.piseth.java.school.phoneshop.dto.SaleByDateDTO;
 import com.piseth.java.school.phoneshop.projections.SaleByDate;
 
@@ -11,5 +12,10 @@ public interface ReportingService {
 	List<SaleByDate> getProductSoldByDate(LocalDate soldDate);
 	
 	List<SaleByDateDTO> getProductSoldByDateV2(LocalDate soldDate);
+	
+	// startDate , endDate
+	
+	List<ProductSoldDTO> getProductSold(LocalDate startDate, LocalDate endDate);
+	
 
 }

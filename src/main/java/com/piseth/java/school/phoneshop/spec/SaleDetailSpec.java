@@ -27,9 +27,9 @@ public class SaleDetailSpec implements Specification<SaleDetail>{
 
 	@Override
 	public Predicate toPredicate(Root<SaleDetail> saleDetail, CriteriaQuery<?> query, CriteriaBuilder cb) {
+		Join<SaleDetail, Sale> sale = saleDetail.join("sale");
 		if(detailFilter.getSoldDate() != null) {
-			Join<SaleDetail, Sale> sale = saleDetail.join("sale");
-			//Predicate soldDate = sale.get("soldDate").in(detailFilter.getSoldDate());
+			
 			LocalDate date = detailFilter.getSoldDate();
 			
 			LocalDateTime startDateTime = date.atStartOfDay();
@@ -39,6 +39,19 @@ public class SaleDetailSpec implements Specification<SaleDetail>{
 			
 			predicates.add(soldDate);
 		}
+		
+		if(detailFilter.getStartDate() != null) {
+			LocalDateTime startDateTime = detailFilter.getStartDate().atStartOfDay();
+			Predicate startDate = cb.greaterThanOrEqualTo(sale.get("soldDate"), startDateTime);
+			predicates.add(startDate);
+		}
+		
+		if(detailFilter.getEndDate() != null) {
+			LocalDateTime endDateTime = detailFilter.getEndDate().atTime(LocalTime.MAX);
+			Predicate endDate = cb.lessThanOrEqualTo(sale.get("soldDate"), endDateTime);
+			predicates.add(endDate);
+		}
+		
 		Predicate[] predicateArr = predicates.toArray(Predicate[]::new);
 		return cb.and(predicateArr);
 	}
