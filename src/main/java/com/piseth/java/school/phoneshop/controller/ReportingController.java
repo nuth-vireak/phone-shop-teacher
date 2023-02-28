@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.piseth.java.school.phoneshop.dto.ExpenseDTO;
 import com.piseth.java.school.phoneshop.dto.ProductSoldDTO;
 import com.piseth.java.school.phoneshop.dto.SaleByDateDTO;
 import com.piseth.java.school.phoneshop.projections.SaleByDate;
@@ -42,5 +43,13 @@ public class ReportingController {
 			@PathVariable("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate){
 		List<ProductSoldDTO> productSold = reportingService.getProductSold(startDate, endDate);
 		return ResponseEntity.ok(productSold);
+	}
+	
+	@GetMapping("/expense/{startDate}/{endDate}")
+	public ResponseEntity<?> getExpense(
+			@PathVariable("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+			@PathVariable("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate){
+		List<ExpenseDTO> expenseDTOs = reportingService.getExpense(startDate, endDate);
+		return ResponseEntity.ok(expenseDTOs);
 	}
 }

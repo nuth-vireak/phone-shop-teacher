@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.piseth.java.school.phoneshop.dto.ProductDisplayDTO;
 import com.piseth.java.school.phoneshop.dto.ProductImportDTO;
@@ -18,4 +19,5 @@ public interface ProductService {
 	List<ProductDisplayDTO> toProductDisplayDTOs(List<Product> products);
 	boolean hasAvailableUnit(Long productId, Integer orderUnit);
 	boolean salePriceIsSet(Long productId);
+	Map<Long, String> uploadProducts(MultipartFile file);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.piseth.java.school.phoneshop.dto.PageDTO;
 import com.piseth.java.school.phoneshop.dto.PriceDTO;
@@ -51,6 +52,13 @@ public class ProductController {
 		
 		return ResponseEntity.ok(pageDTO);
 	}
+	
+	@PostMapping("uploadProducts")
+	public ResponseEntity<?> uploadProoducts(@RequestParam("file") MultipartFile file){
+		Map<Long, String> errorMap = productService.uploadProducts(file);
+		return ResponseEntity.ok(errorMap);
+	}
+
 	
 	
 

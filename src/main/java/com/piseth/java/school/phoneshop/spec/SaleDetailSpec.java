@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import com.piseth.java.school.phoneshop.model.Sale;
 import com.piseth.java.school.phoneshop.model.SaleDetail;
+import com.piseth.java.school.phoneshop.model.Sale_;
 
 import lombok.RequiredArgsConstructor;
 
@@ -50,6 +52,11 @@ public class SaleDetailSpec implements Specification<SaleDetail>{
 			LocalDateTime endDateTime = detailFilter.getEndDate().atTime(LocalTime.MAX);
 			Predicate endDate = cb.lessThanOrEqualTo(sale.get("soldDate"), endDateTime);
 			predicates.add(endDate);
+		}
+		
+		if(Objects.nonNull(detailFilter.getSaleStatus())) {
+			Predicate saleStatus = sale.get(Sale_.STATUS).in(detailFilter.getSaleStatus());
+			predicates.add(saleStatus);
 		}
 		
 		Predicate[] predicateArr = predicates.toArray(Predicate[]::new);

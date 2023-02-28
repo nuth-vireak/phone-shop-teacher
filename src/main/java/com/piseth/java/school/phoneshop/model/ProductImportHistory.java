@@ -2,6 +2,7 @@ package com.piseth.java.school.phoneshop.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +30,7 @@ public class ProductImportHistory {
 	private Product product;
 	
 	@Column(name = "date_import")
-	private LocalDate dateImport;
+	private LocalDateTime dateImport;
 	
 	@DecimalMin(value = "0.000001")
 	@Column(name = "price_per_unit")

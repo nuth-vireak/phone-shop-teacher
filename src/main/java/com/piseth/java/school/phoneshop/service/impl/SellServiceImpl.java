@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.piseth.java.school.phoneshop.dto.ProductOrderDTO;
 import com.piseth.java.school.phoneshop.dto.SaleDTO;
+import com.piseth.java.school.phoneshop.exception.ResourceNotFoundException;
 import com.piseth.java.school.phoneshop.mapper.SaleMapper;
 import com.piseth.java.school.phoneshop.model.Product;
 import com.piseth.java.school.phoneshop.model.Sale;
@@ -65,6 +66,42 @@ public class SellServiceImpl implements SellService{
 			productRepository.save(product);
 		}
 		
+	}
+
+	@Override
+	public void cancelSale(Long saleId) {
+		// validate saleId
+		// get sale by id , update saleStatus
+		Sale sale = getById(saleId);
+		sale.setStatus(false);
+		saleRepository.save(sale);
+		
+		//get saleDetail , update saleDetailStatus
+		List<SaleDetail> saleDeatils = saleDetailRepository.findBySaleId(saleId);
+		
+		
+		// get products by ids
+		List<Long> productIds = saleDeatils.stream()
+			.map(sd -> sd.getProduct().getId())
+			.toList();
+		List<Product> products = productRepository.findAllById(productIds);
+		
+		Map<Long, Product> productMap = products.stream()
+			//.collect(Collectors.toMap(p->p.getId(), p -> p));
+			.collect(Collectors.toMap(Product::getId, Function.identity()));
+		// update stock
+		saleDeatils.forEach(sd ->{
+			Product product = productMap.get(sd.getProduct().getId());
+			product.setAvailableUnit(product.getAvailableUnit() + sd.getUnit());
+			productRepository.save(product);
+		});
+
+	}
+
+	@Override
+	public Sale getById(Long saleId) {
+		return saleRepository.findById(saleId)
+				.orElseThrow(() -> new ResourceNotFoundException("Sale", saleId));
 	}
 
 }

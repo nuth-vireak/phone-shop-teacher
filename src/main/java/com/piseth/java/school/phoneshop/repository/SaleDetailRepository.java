@@ -19,6 +19,6 @@ public interface SaleDetailRepository extends JpaRepository<SaleDetail, Long>, J
 			+ "where date(sold_date) = :soldDate\r\n"
 			+ "group by date(sold_date), product_id, p.name", nativeQuery = true)
 	List<SaleByDate> findByProduct(@Param("soldDate") LocalDate soldDate);
-	
-	//List<SaleByDate> findByProductByDate(@Param("soldDate") LocalDate soldDate);
+
+	List<SaleDetail> findBySaleId(Long saleId);
 }
