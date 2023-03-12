@@ -1,4 +1,4 @@
-package com.piseth.java.school.phoneshop.configz.security;
+package com.piseth.java.school.phoneshop.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

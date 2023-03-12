@@ -35,6 +35,7 @@ public class BrandController {
 		return ResponseEntity.ok(brand);
 	}
 	
+	
 	@GetMapping("{id}")
 	public ResponseEntity<?> getById(@PathVariable("id") Long id) throws ApiException{
 		return ResponseEntity.ok(brandService.getById(id));

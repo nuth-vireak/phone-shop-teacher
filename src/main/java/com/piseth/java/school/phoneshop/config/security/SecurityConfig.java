@@ -1,19 +1,16 @@
-package com.piseth.java.school.phoneshop.configz.security;
+package com.piseth.java.school.phoneshop.config.security;
 
-import java.util.Collections;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,13 +20,14 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	private final PasswordEncoder passwordEncoder;
+	private final UserDetailsService userDetailsService;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 			.authorizeHttpRequests()
 			.antMatchers("/","/index","/home","css/**","js/**").permitAll()
-			//.antMatchers("/brands").hasRole("SALE")
+			.antMatchers("/models").hasRole("SALE")
 			.antMatchers(HttpMethod.POST, "/brands").hasAuthority(PermissionEnum.BRAND_WRITE.getDescription())
 			.antMatchers(HttpMethod.GET, "/brands").hasAuthority(PermissionEnum.BRAND_READ.getDescription())
 			.anyRequest()
@@ -38,6 +36,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.httpBasic();
 	}
 	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(getAuthenticationProvider());
+	}
+	
+	@Bean
+	public AuthenticationProvider getAuthenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setUserDetailsService(userDetailsService);
+		provider.setPasswordEncoder(passwordEncoder);
+		return provider;
+	}
+	
+	/*
 	@Bean
 	@Override
 	protected UserDetailsService userDetailsService() {
@@ -60,4 +72,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		UserDetailsService detailsService = new InMemoryUserDetailsManager(dara, thida);
 		return detailsService;
 	}
+	*/
 }

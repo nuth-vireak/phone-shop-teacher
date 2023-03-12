@@ -19,6 +19,7 @@ spring:
       fail-on-empty-beans: false
   liquibase:
         change-log: classpath:db/changelog/db.changelog-master.yaml
+        enabled: false
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
