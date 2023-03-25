@@ -3,11 +3,12 @@ package com.piseth.java.school.phoneshop.config.security;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-
+@Primary
 @Service
 @RequiredArgsConstructor
 public class FakeUserServiceImpl implements ApplicationUserService{
