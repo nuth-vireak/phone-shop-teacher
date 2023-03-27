@@ -9,5 +9,9 @@ public class UserServiceTest {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encode = encoder.encode("mypassword");
 		System.out.println(encode);
+		
+		String pwd = "$2a$10$ajNpE/oOH2y1V5hDgSR26OOoCkLCcdqUXMVgfA57rZ1A/R2bIkwJa";
+		boolean matches = encoder.matches(encode, pwd);
+		System.out.println(matches);
 	}
 }

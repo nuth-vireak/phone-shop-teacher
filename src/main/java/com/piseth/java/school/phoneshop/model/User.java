@@ -3,15 +3,13 @@ package com.piseth.java.school.phoneshop.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.piseth.java.school.phoneshop.config.security.RoleEnum;
 
 import lombok.Data;
 
@@ -31,9 +29,6 @@ public class User {
 	private Boolean isCredentialsNonExpired;
 	private Boolean isEnabled;
 	
-	@Enumerated(EnumType.STRING)
-	private RoleEnum role;
-	
-	//@OneToMany
-	//private Set<Role> roles;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Role> roles;
 }

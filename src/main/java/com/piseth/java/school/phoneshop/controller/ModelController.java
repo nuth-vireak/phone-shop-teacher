@@ -2,9 +2,12 @@ package com.piseth.java.school.phoneshop.controller;
 
 import java.util.Map;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +49,8 @@ public class ModelController {
 		return ResponseEntity.ok(ModelEntityMapper.INSTANCE.toDTO(model));
 	}
 	
+	//@PreAuthorize("hasRole('ROLE_SALE')")
+	@RolesAllowed("ROLE_SALE")
 	@GetMapping
 	public ResponseEntity<?> getModelList(@RequestParam Map<String, String> params){
 		Page<Model> page = modelService.getModels(params);
