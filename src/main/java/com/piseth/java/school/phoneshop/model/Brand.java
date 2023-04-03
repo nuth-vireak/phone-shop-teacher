@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Brand {
+public class Brand extends AuditEntity{
 	@Id
 	@GeneratedValue(generator = "brand_seq_generator")
 	@SequenceGenerator(name = "brand_seq_generator", initialValue = 1, sequenceName = "brand_seq")

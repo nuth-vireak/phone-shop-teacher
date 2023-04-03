@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 	
 	private final AuthenticationManager authenticationManager;
+	@Value("${application.secret-key}")
+	private String secretKey = "mykey123456789abcdmykey123456789abcdmykey123456789abcd";
 	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +48,6 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		
-		String secretKey = "mykey123456789abcdmykey123456789abcdmykey123456789abcd";
 		String token = Jwts.builder()
 			.setSubject(authResult.getName())
 			.claim("authorities", authResult.getAuthorities())

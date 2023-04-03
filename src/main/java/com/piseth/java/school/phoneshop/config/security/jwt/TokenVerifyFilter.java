@@ -12,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +29,10 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Configuration
 public class TokenVerifyFilter extends OncePerRequestFilter{
+	//@Value("${application.secret-key}")
+	private String secretKey = "mykey123456789abcdmykey123456789abcdmykey123456789abcd";
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -42,8 +47,6 @@ public class TokenVerifyFilter extends OncePerRequestFilter{
 		}
 		String token = authorizationHeader.replace("Bearer ", "");
 		try {
-			String secretKey = "mykey123456789abcdmykey123456789abcdmykey123456789abcd";
-			
 			
 			Jws<Claims> claimsJws = Jwts.parser()
 				.setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))

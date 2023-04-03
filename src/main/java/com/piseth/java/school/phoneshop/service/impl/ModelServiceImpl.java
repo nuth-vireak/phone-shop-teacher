@@ -66,5 +66,5 @@ public class ModelServiceImpl implements ModelService{
 		Page<Model> page = modelRepository.findAll(modelSpec, pageable);
 		return page;
 	}
-
+	
 }

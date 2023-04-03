@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.piseth.java.school.phoneshop.exception.ApiException;
+import com.piseth.java.school.phoneshop.mapper.BrandMapper;
 import com.piseth.java.school.phoneshop.model.Brand;
 import com.piseth.java.school.phoneshop.repository.BrandRepository;
 import com.piseth.java.school.phoneshop.service.BrandService;
@@ -39,8 +40,8 @@ public class BrandServiceImpl implements BrandService{
 		Brand target = getById(id);
 		//source.setId(id);
 		//BrandMapper.INSTANCE.update(target, source);
-		BeanUtils.copyProperties(source, target, "id");
-		//target.setName("Apple was update");
+		//BeanUtils.copyProperties(source, target, "id","createDate");
+		target.setName(source.getName());
 		return brandRepository.save(target);
 	}
 
