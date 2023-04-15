@@ -14,9 +14,18 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
-import lombok.Data;
+import com.piseth.java.school.phoneshop.validator.ValidateProductColor;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@ValidateProductColor
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "products", 
 uniqueConstraints = {@UniqueConstraint(columnNames = {"model_id", "color_id"})})
 @Data

@@ -3,8 +3,10 @@ package com.piseth.java.school.phoneshop.service.impl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,7 +28,6 @@ import com.piseth.java.school.phoneshop.spec.ProductImportHistorySpec;
 import com.piseth.java.school.phoneshop.spec.SaleDetailFilter;
 import com.piseth.java.school.phoneshop.spec.SaleDetailSpec;
 
-import liquibase.pro.packaged.ex;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -95,9 +96,9 @@ public class ReportingServiceImpl implements ReportingService{
 		Map<Product, List<SaleDetail>> saleByProductMap = saleDetails.stream()
 			.collect(Collectors.groupingBy(SaleDetail::getProduct));
 		
-		List<Long> productIds = saleDetails.stream()
+		Set<Long> productIds = saleDetails.stream()
 				.map(sd -> sd.getProduct().getId())
-				.toList();
+				.collect(Collectors.toSet());
 		// Find all product sold in that day	
 		List<Product> products = productRepository.findAllById(productIds);
 		Map<Long, Product> productMap = products.stream()
@@ -120,7 +121,8 @@ public class ReportingServiceImpl implements ReportingService{
 			ProductSoldDTO productSoldDTO = toProductSoldDTO(product,totalUnit, amount);
 			productSoldDTOs.add(productSoldDTO);
 		}
-				
+			
+		Collections.sort(productSoldDTOs, (a,b) -> (int)(a.getProductId() - b.getProductId()));
 
 		return productSoldDTOs;
 	}

@@ -12,9 +12,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "models")
 public class Model {
@@ -33,5 +37,5 @@ public class Model {
 	
 	@NotNull(message = "{required.field}")
 	@Column(name = "year_made")
-	private Short yearMade;
+	private Integer yearMade;
 }
